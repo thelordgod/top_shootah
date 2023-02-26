@@ -4,6 +4,7 @@
   "description": "",
   "source": "index.html",
   "scripts": {
+    "prebuild" : "cp -r assets dist/",
 	"start" : "parcel",
 	"build" : "parcel build"
   },
