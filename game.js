@@ -11,15 +11,17 @@ class GameRunner {
 		this.grid.init(this.scene);
 		this.cam = scene.cameras.main
 		this.cam.setZoom(1);
-		this.player = new Player(this, {x: 20, y: 20})
-		this.units.push(this.player);
-
 		this.moveKeys = this.scene.input.keyboard.addKeys({
 				up: Phaser.Input.Keyboard.KeyCodes.W,
 				down: Phaser.Input.Keyboard.KeyCodes.S,
 				left: Phaser.Input.Keyboard.KeyCodes.A,
 				right: Phaser.Input.Keyboard.KeyCodes.D
 			});
+	}
+
+	addPlayer() {
+		this.player = new Player(this, {x: 20, y: 20})
+		this.units.push(this.player);
 	}
 
 	addUnit(pos, speed, initial_behaviour) {

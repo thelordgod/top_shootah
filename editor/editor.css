@@ -1,0 +1,13 @@
+
+#editor-container-wrap {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+#editor-container {
+	background-color: #444;
+	opacity: 0.5;
+	width: 300px;
+	height: 30vh;
+}
