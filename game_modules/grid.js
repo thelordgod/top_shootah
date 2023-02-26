@@ -1,3 +1,6 @@
+
+let sqrtTwo = Math.sqrt(2)
+
 class GameGridCell{
 	constructor (pos_x, pos_y, scene) {
 		this.px = pos_x
@@ -60,10 +63,17 @@ class GameGrid {
 			}
 	}
 
+	getCellWorldPoint(cell) {
+		return {
+			x: cell.px * this.cellSize,
+			y: cell.py * this.cellSize
+		}
+	}
+
 	getCellAt(x, y) {
 		let xCell = Math.floor(x / this.cellSize)
 		let yCell = Math.floor(y / this.cellSize)
-		console.log(xCell + " " + yCell);
+		//console.log(xCell + " " + yCell);
 		return this.cells[yCell * this.sx + xCell];
 	}
 
@@ -72,6 +82,9 @@ class GameGrid {
 	}
 
 	getCellAtIdx(idx_x, idx_y) {
+		if ( idx_x < 0 || idx_y < 0) {
+			return undefined;
+		}
 		return this.cells[idx_y * this.sx + idx_x];
 	}
 
@@ -83,6 +96,44 @@ class GameGrid {
 			this.cells[i].setHighlight(false);
 			this.cells[i].process();
 		}
+	}
+
+	getNeighbourCells(cell) {
+		// Return array of array[2] ([[cell, distance]])
+		let result = []
+
+		if (cell.px != 0) {
+			// Edge cell cell check
+			if (cell.py != this.sy) {
+				result.push([this.getCellAtIdx(cell.px - 1, cell.py + 1), sqrtTwo]);
+			}
+			result.push([this.getCellAtIdx(cell.px - 1, cell.py), 1]);
+		}
+
+		if (cell.py != 0) {
+			// Edge cell cell check
+			if (cell.px != this.sx) {
+				result.push([this.getCellAtIdx(cell.px + 1, cell.py - 1), sqrtTwo]);
+			}
+			result.push([this.getCellAtIdx(cell.px, cell.py - 1), 1]);
+		}
+
+		// Corner cell check
+		if (cell.px != 0 && cell.py != 0) {
+			result.push([this.getCellAtIdx(cell.px - 1, cell.py - 1), sqrtTwo]);
+		}
+		if (cell.px != this.sx && cell.py != this.sy) {
+			result.push([this.getCellAtIdx(cell.px + 1, cell.py + 1), sqrtTwo]);
+		}
+
+		if (cell.py != this.sy) {
+			result.push([this.getCellAtIdx(cell.px, cell.py + 1), 1]);
+		}
+		if (cell.px != this.sx) {
+			result.push([this.getCellAtIdx(cell.px + 1, cell.py), 1]);
+		}
+
+		return result;
 	}
 
 	process() {
