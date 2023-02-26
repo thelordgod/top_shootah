@@ -1,7 +1,7 @@
 import { Stationary, MoveToTarget } from './behaviour'
 
 class GameUnit {
-	constructor(scene, start_pos) {
+	constructor(scene, start_pos, speed) {
 		this.pos = start_pos;
 		this.scene = scene;
 		this.size = 32;
@@ -9,7 +9,7 @@ class GameUnit {
 		this.drawable.setOrigin(0.5, 0.5);
 		this.drawable.setDisplaySize(this.size, this.size);
 
-		this.maxSpeed = 1.0;
+		this.maxSpeed = speed;
 
 		this.behaviour = new Stationary();
 	}
