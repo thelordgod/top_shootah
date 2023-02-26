@@ -1,6 +1,6 @@
 import {GameRunner} from './game'
-
-import { MoveToTarget } from './game_modules/behaviour';
+import {PathFinder} from './game_modules/path_finder';
+import { MoveToTarget, MoveAlongPath, WanderAround, MoveToUnit } from './game_modules/behaviour';
 
 class MainScene extends Phaser.Scene
 {
@@ -17,9 +17,9 @@ class MainScene extends Phaser.Scene
 
     create ()
     {
-		this.game.addUnit({x : 100, y : 100});
-		this.game.addUnit({x : 120, y : 200}, new MoveToTarget({x: 700, y: 500}));
-		this.game.addUnit({x : 300, y : 500});
+		this.game.addUnit({x : 100, y : 100}, 0.5, new WanderAround(this.game.grid));
+		let wanderer = this.game.addUnit({x : 120, y : 200}, 1.8, new WanderAround(this.game.grid));
+		this.game.addUnit({x : 300, y : 500}, 0.6, new MoveToUnit(wanderer));
     }
 
     update ()
