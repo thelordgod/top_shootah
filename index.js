@@ -25,7 +25,7 @@ class MainScene extends Phaser.Scene
     update ()
     {
 		this.game.update(0.1);
-		this.game.setCamera(this.follower.pos);
+		this.game.setCamera(this.game.player.pos);
     }
 }
 

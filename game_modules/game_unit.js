@@ -5,13 +5,13 @@ class GameUnit {
 		this.pos = start_pos;
 		this.scene = scene;
 		this.size = 32;
-		this.drawable = scene.add.image(this.pos.x, this.pos.y, 'unit');
+		this.drawable = this.scene.add.image(this.pos.x, this.pos.y, 'unit');
 		this.drawable.setOrigin(0.5, 0.5);
 		this.drawable.setDisplaySize(this.size, this.size);
 
 		this.maxSpeed = speed;
 
-		this.behaviour = new Stationary();
+		this.behaviour = undefined;
 	}
 
 	updateDrawable(scene) {
@@ -22,7 +22,9 @@ class GameUnit {
 	}
 
 	update(dt) {
-		this.behaviour.process(this)
+		if (this.behaviour != undefined) {
+			this.behaviour.process(this);
+		}
 		this.drawable.x = this.pos.x;
 		this.drawable.y = this.pos.y;
 	}

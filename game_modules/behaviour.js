@@ -125,10 +125,10 @@ class MoveAlongPath extends Behaviour {
 class WanderAround extends Behaviour {
 	constructor(grid) {
 		super()
-		this.path = PathFinder.getPath(grid, {x: Math.random() * 600.0, y: Math.random() * 600.0}, {x: Math.random() * 600.0, y: Math.random() * 600.0})
 		this.targetPos = undefined
 		this.successDistance = 10;
 		this.grid = grid
+		this.path = PathFinder.getPath(this.grid, {x: Math.random() * 600.0, y: Math.random() * 600.0}, {x: Math.random() * 600.0, y: Math.random() * 600.0})
 	}
 
 	process(unit) {
