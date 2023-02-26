@@ -8,6 +8,8 @@ class GameRunner {
 		this.scene = scene
 		this.grid = new GameGrid(100, 100);
 		this.grid.init(this.scene);
+		this.cam = scene.cameras.main
+		this.cam.setZoom(1);
 	}
 
 	addUnit(pos, speed, initial_behaviour) {
@@ -17,6 +19,10 @@ class GameRunner {
 		}
 		this.units.push(newUnit);
 		return newUnit
+	}
+
+	setCamera(pos) {
+        this.cam.centerOn(pos.x, pos.y);
 	}
 
 	update(dt) {

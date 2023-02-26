@@ -18,13 +18,14 @@ class MainScene extends Phaser.Scene
     create ()
     {
 		this.game.addUnit({x : 100, y : 100}, 0.5, new WanderAround(this.game.grid));
-		let wanderer = this.game.addUnit({x : 120, y : 200}, 1.8, new WanderAround(this.game.grid));
-		this.game.addUnit({x : 300, y : 500}, 0.6, new MoveToUnit(wanderer));
+		this.wanderer = this.game.addUnit({x : 120, y : 200}, 1.8, new WanderAround(this.game.grid));
+		this.follower = this.game.addUnit({x : 300, y : 500}, 0.6, new MoveToUnit(this.wanderer));
     }
 
     update ()
     {
 		this.game.update(0.1);
+		this.game.setCamera(this.follower.pos);
     }
 }
 
