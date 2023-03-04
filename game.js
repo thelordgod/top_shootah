@@ -34,22 +34,37 @@ class GameRunner {
 	}
 
 	processInput() {
+		let speed = 10.0;
+		let moveDir = {x: 0.0, y: 0.0};
+		let revSqrt2 = 0.7071;
+
 		if (this.moveKeys.up.isDown) {
 			console.log("Up pressed")
-			this.player.move({x: 0.0, y: -10.0})
+			moveDir.y -= 1.0;
 		}
 		if (this.moveKeys.down.isDown) {
 			console.log("Down pressed")
-			this.player.move({x: 0.0, y: 10.0})
+			moveDir.y += 1.0;
 		}
 		if (this.moveKeys.left.isDown) {
 			console.log("Left pressed")
-			this.player.move({x: -10.0, y: 0.0})
+			moveDir.x -= 1.0;
 		}
 		if (this.moveKeys.right.isDown) {
 			console.log("Right pressed")
-			this.player.move({x: 10.0, y: 0.0})
+			moveDir.x += 1.0;
 		}
+
+		if (moveDir.x != 0.0 && moveDir.y != 0.0) {
+			// Going diagonally
+			moveDir.x *= revSqrt2;
+			moveDir.y *= revSqrt2;
+		}
+
+		moveDir.x *= speed;
+		moveDir.y *= speed;
+
+		this.player.move(moveDir);
 	}
 
 	setCamera(pos) {
